@@ -20,11 +20,13 @@ bash setup.sh
 > 或从项目根目录：`bash reasonix-setup/setup.sh`
 
 该脚本自动完成：
-1. 环境检查（Node.js / npm / Python / pip）
+1. 环境检查 + 安装 Node.js ≥20（通过 fnm，如缺失）
 2. 安装 Reasonix（`npm install -g reasonix`）
 3. 安装 Vibe-Trading（`pip install vibe-trading-ai`，可选跳过）
 4. 部署 `CLAUDE.md` → `~/.claude/CLAUDE.md`
 5. 部署 `reasonix-tracker.sh` → `~/bin/reasonix-tracker.sh`
+6. 配置系统 PATH（所有终端通用）
+7. 配置 Bash / PowerShell 环境持久化
 
 如果不需要金融分析功能，跳过 Vibe-Trading：
 
@@ -32,7 +34,13 @@ bash setup.sh
 bash setup.sh --skip-vibe
 ```
 
-## 安装完成后 — 手动配置 API Key
+## 安装完成后 — 手动配置
+
+### 1. 重启终端（重要！）
+
+`setup.sh` 修改了系统 PATH，**必须关掉所有旧终端，重新打开新终端**，`node` / `npm` / `reasonix` 才能使用。
+
+### 2. 配置 API Key
 
 `setup.sh` 跑完后，还需你手动完成（需要你的 DeepSeek API Key）：
 
@@ -64,6 +72,19 @@ bash ~/bin/reasonix-tracker.sh research-deep "分析英伟达ROE趋势"
 | `CLAUDE.md` | `~/.claude/CLAUDE.md` | 全局搜索规则（Reasonix 100% 走） |
 | `reasonix-tracker.sh` | `~/bin/reasonix-tracker.sh` | 搜索包装脚本（research / framework / research-deep） |
 | `setup.sh` | `reasonix-setup/` 目录 | 一键部署脚本 |
+| `TROUBLESHOOTING.md` | `reasonix-setup/` 目录 | 常见问题与解决方法 |
+
+## 遇到问题？
+
+查看 [TROUBLESHOOTING.md](TROUBLESHOOTING.md)，记录了安装过程中 7 个常见问题及解决方案：
+
+- winget 协议接受失败
+- 网络下载错误
+- shell 找不到命令
+- 新终端 PATH 不生效
+- Git Bash 不加载 .bashrc
+- PowerShell 执行策略阻止
+- API Key 未配置
 
 ## 工作原理
 
